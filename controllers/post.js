@@ -6,7 +6,7 @@ export const getPosts = (req, res) => {
 
   const userId = req.query.userId;
   const token = req.cookies.accessToken;
-
+ 
   if(!token) return res.status(401).json("Not logged in!");
 
   jwt.verify(token, "secretkey", (err, userInfo) => {
@@ -50,9 +50,6 @@ export const addPost = (req, res) => {
 
   jwt.verify(token, "secretkey", (err, userInfo) => { 
     if(err) return res.status(403).json("Token is not valid!");
-
-    console.log("Received Description:", req.body.desc); // Add this new code
-    console.log("Received Image URL:", req.body.img); // Add this new code
 
     const q = "INSERT INTO posts (`desc`, `img`, `userId`, `createdAt`) VALUES (?)";
 
